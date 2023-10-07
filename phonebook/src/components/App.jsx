@@ -12,9 +12,13 @@ const App = () => {
 
   function formHandler(e) {
     e.preventDefault();
-    const newPerson = { name : newName};
-    setPersons(persons.concat(newPerson));
-    setNewName("");
+    if (!persons.map(person => person.name).includes(newName)) {
+      const newPerson = { name : newName};
+      setPersons(persons.concat(newPerson));
+      setNewName("");  
+    } else {
+      alert(`${newName} is already added to phonebook`);
+    }
   }
 
   return (
@@ -35,7 +39,7 @@ const App = () => {
       <h2>Numbers</h2>
       <ul>
         {
-          persons.map((person, indx) => <li key = {person["name"]}>{person["name"]}</li>)
+          persons.map(person => <li key = {person["name"]}>{person["name"]}</li>)
         }
       </ul>
       
