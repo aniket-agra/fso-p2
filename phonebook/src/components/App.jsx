@@ -35,7 +35,7 @@ const App = () => {
       <h2>Numbers</h2>
       <ul>
         {
-          persons.map((person, indx) => <li key = {indx}>{person["name"]}</li>)
+          persons.map((person, indx) => <li key = {person["name"]}>{person["name"]}</li>)
         }
       </ul>
       
