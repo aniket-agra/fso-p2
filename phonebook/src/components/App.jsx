@@ -1,15 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Filter } from './Filter'
 import { Display } from './Display'
 import { Details } from './Details'
+import axios from 'axios'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', phone : "000" }
-  ]) 
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('')
   const [number, setNumber] = useState('');
   const [query, setQuery] = useState('');
+
+  useEffect( () => {
+    console.log("effect");
+    axios
+      .get("http://localhost:3001/persons")
+      .then(response => setPersons(response["data"]));
+  }, []);
 
   const displayedPersons = persons.filter(person => 
    person["name"].toLowerCase().includes(query.toLowerCase())
@@ -30,7 +36,7 @@ const App = () => {
   function formHandler(e) {
     e.preventDefault();
     if (!persons.map(person => person.name).includes(newName)) {
-      const newPerson = { name : newName, phone : number};
+      const newPerson = { name : newName, number : number};
       setPersons(persons.concat(newPerson));
       setNewName("");  
       setNumber("");
