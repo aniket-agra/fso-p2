@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Filter } from './Filter'
 import { Display } from './Display'
 import { Details } from './Details'
-import axios from 'axios'
+import { getAllData, addNew } from '../services/server'
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -12,8 +12,7 @@ const App = () => {
 
   useEffect( () => {
     console.log("effect");
-    axios
-      .get("http://localhost:3001/persons")
+    getAllData()
       .then(response => setPersons(response["data"]));
   }, []);
 
@@ -37,8 +36,7 @@ const App = () => {
     e.preventDefault();
     if (!persons.map(person => person.name).includes(newName)) {
       const newPerson = { name : newName, number : number};
-      axios
-        .post("http://localhost:3001/persons", newPerson)
+      addNew(newPerson)
         .then(response => {
           console.log(response);
           setPersons(persons.concat(newPerson));
