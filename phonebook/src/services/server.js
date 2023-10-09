@@ -17,4 +17,4 @@ const deleteEntry = function (person) {
             .delete(base_url + person["id"]);
 }
 
-export {getAllData, addNew, deleteEntry};
+export default {getAllData, addNew, deleteEntry};

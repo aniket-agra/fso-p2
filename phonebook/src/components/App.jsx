@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Filter } from './Filter'
 import { Display } from './Display'
 import { Details } from './Details'
-import { getAllData, addNew, deleteEntry } from '../services/server'
+import phoneService from '../services/server'
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -12,7 +12,7 @@ const App = () => {
 
   useEffect( () => {
     console.log("effect");
-    getAllData()
+    phoneService.getAllData()
       .then(response => setPersons(response["data"]));
   }, []);
 
@@ -36,7 +36,7 @@ const App = () => {
     e.preventDefault();
     if (!persons.map(person => person.name).includes(newName)) {
       const newPerson = { name : newName, number : number};
-      addNew(newPerson)
+      phoneService.addNew(newPerson)
         .then(response => {
           console.log(response);
           setPersons(persons.concat(newPerson));
@@ -51,7 +51,7 @@ const App = () => {
   function deleteDetails(name) {
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
       // console.log(persons.filter(person => person["name"] !== name));
-      deleteEntry(persons.find(person => person["name"] === name))
+      phoneService.deleteEntry(persons.find(person => person["name"] === name))
         .then(response => console.log(response));
       setPersons(persons.filter(person => person["name"] !== name));
     }
