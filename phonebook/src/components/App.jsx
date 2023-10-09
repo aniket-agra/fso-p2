@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Filter } from './Filter'
 import { Display } from './Display'
 import { Details } from './Details'
-import { getAllData, addNew } from '../services/server'
+import { getAllData, addNew, deleteEntry } from '../services/server'
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -48,6 +48,15 @@ const App = () => {
     }
   }
 
+  function deleteDetails(name) {
+    if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+      // console.log(persons.filter(person => person["name"] !== name));
+      deleteEntry(persons.find(person => person["name"] === name))
+        .then(response => console.log(response));
+      setPersons(persons.filter(person => person["name"] !== name));
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -61,7 +70,10 @@ const App = () => {
         updateNumber = {updateNumber}
       />
       <h3>Numbers</h3>
-      <Display toDisplay = {displayedPersons} />
+      <Display 
+        toDisplay = {displayedPersons} 
+        deleteEntry = {deleteDetails}
+      />
     </div>
   )
 }

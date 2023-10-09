@@ -1,9 +1,12 @@
-function Display({toDisplay}) {
+function Display({toDisplay, deleteEntry}) {
     return (
         <>
             {
                 toDisplay.map(person => 
-                <div key = {person["name"]}>{person["name"]} {person["number"]}</div>
+                <div key = {person["name"]}>
+                    {person["name"]} {person["number"]} 
+                    <button onClick = {() => deleteEntry(person["name"])}>Delete</button>
+                </div>
                 )
             }
         </>

@@ -12,4 +12,9 @@ const addNew = function (entry) {
             .post(base_url, entry);
 }
 
-export {getAllData, addNew};
+const deleteEntry = function (person) {
+    return axios 
+            .delete(base_url + person["id"]);
+}
+
+export {getAllData, addNew, deleteEntry};
