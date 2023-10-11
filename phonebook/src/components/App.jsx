@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Filter } from './Filter'
 import { Display } from './Display'
 import { Details } from './Details'
+import { Notification } from './Notification'
 import phoneService from '../services/server'
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [number, setNumber] = useState('');
   const [query, setQuery] = useState('');
+  const [message, setMessage] = useState(null);
 
   useEffect( () => {
     console.log("effect");
@@ -42,13 +44,18 @@ const App = () => {
           setPersons(persons.concat(newPerson));
           setNewName("");  
           setNumber("");
+          setMessage(`${newName} added to phonebook`);
+          setTimeout(() => setMessage(null), 5000);
         });
     } else {
       if (window.confirm(`${newName} is already in phonebook. Do you want to update their number?`)) {
         let toUpdate = persons.find(person => person["name"] === newName);
         let newPerson = {...toUpdate, number : number};
         phoneService.updateEntry(newPerson["id"], newPerson)
-         .then(response => console.log(response));
+         .then(response => console.log(response))
+         .catch(() => setMessage(`Error! ${newName} has been deleted from phonebook!`));
+        setMessage(`Details for ${newName} updated`);
+        setTimeout(() => setMessage(null), 5000);
         setNewName("");  
         setNumber("");
       } 
@@ -61,12 +68,15 @@ const App = () => {
       phoneService.deleteEntry(persons.find(person => person["name"] === name))
         .then(response => console.log(response));
       setPersons(persons.filter(person => person["name"] !== name));
+      setMessage(`${name} deleted from phonebook.`);
+      setTimeout(() => setMessage(null), 5000);
     }
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message = {message}/>
       <Filter query = {query} updateQuery = {updateQuery} />
       <h3>Add a new</h3>
       <Details
