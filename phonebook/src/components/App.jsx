@@ -44,7 +44,14 @@ const App = () => {
           setNumber("");
         });
     } else {
-      alert(`${newName} is already added to phonebook`);
+      if (window.confirm(`${newName} is already in phonebook. Do you want to update their number?`)) {
+        let toUpdate = persons.find(person => person["name"] === newName);
+        let newPerson = {...toUpdate, number : number};
+        phoneService.updateEntry(newPerson["id"], newPerson)
+         .then(response => console.log(response));
+        setNewName("");  
+        setNumber("");
+      } 
     }
   }
 

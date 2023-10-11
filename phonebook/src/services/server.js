@@ -17,4 +17,9 @@ const deleteEntry = function (person) {
             .delete(base_url + person["id"]);
 }
 
-export default {getAllData, addNew, deleteEntry};
+const updateEntry = function (id, newEntry) {
+    return axios
+            .put(base_url + id, newEntry);
+}
+
+export default {getAllData, addNew, deleteEntry, updateEntry};
