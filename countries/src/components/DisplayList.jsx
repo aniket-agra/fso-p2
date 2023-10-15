@@ -12,11 +12,11 @@ function DisplayList({matchList, handleClick}) {
     return (
         <ul>
             {
-                matchList.map(element => {
+                matchList.map(country => {
                     return (
-                        <li key = {element["cca3"]}>
-                            {element["name"]["common"]}&nbsp;
-                            <button onClick = {() => handleClick(element)}>show</button>
+                        <li key = {country["cca3"]}>
+                            {country["name"]["common"]}&nbsp;
+                            <button onClick = {() => handleClick(country)}>show</button>
                         </li>
                     );                    
                 })
