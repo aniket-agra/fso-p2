@@ -13,6 +13,23 @@ function Search({label, text, handler}) {
     )
 }
 
+function DisplayList({matchList}) {
+    if (matchList.length > 10) {
+        return (
+            <div>
+                Too many matches, specify another filter
+            </div>
+        )
+    }
+    return (
+        <ul>
+            {
+                matchList.map(element => <li key = {element["cca3"]}>{element["name"]["common"]}</li>)
+            }
+        </ul>
+    );
+}
+
 function App () {
     const [query, setQuery] = useState("");
     const [countryData, setCountryData] = useState([]);
@@ -23,6 +40,12 @@ function App () {
             .then(response => setCountryData(response["data"]));
     }, []);
 
+    const matchList = countryData.filter(country => {
+        return country["name"]["common"].toLowerCase().includes(query.toLowerCase());
+    });
+
+    console.log(matchList);
+
     function updateSearch(e) {
         setQuery(e.target.value);
     }
@@ -30,6 +53,7 @@ function App () {
     return (
         <>
             <Search label = "find countries" text = {query} handler = {updateSearch} />
+            <DisplayList matchList = {matchList} />
         </>
     )
 }
