@@ -33,6 +33,31 @@ function DisplayList({matchList}) {
     );
 }
 
+function DisplayCountry({country}) {
+    return (
+        <div>
+            <h1>{country["name"]["common"]}</h1>
+            <h2 />
+            <p>capital {country["capital"]}</p>
+            <p>area {country["area"]}</p>
+            <h2 />
+            <p><b>languages: </b></p>
+            <ul>
+                {
+                    Object.values(country["languages"]).map(language => <li key = {language}>{language}</li>)
+                }
+            </ul>
+            <br />
+            <img 
+                src = {country["flags"]["svg"]}    
+                alt = {`Flag of ${country["name"]["common"]}`} 
+                height = "224px"
+                width = "224px"
+            />
+        </div>
+    )
+}
+
 function App () {
     const [query, setQuery] = useState("");
     const [countryData, setCountryData] = useState([]);
@@ -57,6 +82,7 @@ function App () {
         <>
             <Search label = "find countries" text = {query} handler = {updateSearch} />
             <DisplayList matchList = {matchList} />
+            {/* <DisplayCountry country = {countryData[0]} /> */}
         </>
     )
 }
