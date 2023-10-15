@@ -9,7 +9,7 @@ function DisplayCountry({country}) {
             <div>capital {country["capital"]}</div>
             <div>area {country["area"]}</div>
             <h2 />
-            <p><b>languages: </b></p>
+            <h2>languages: </h2>
             <ul>
                 {
                     Object.values(country["languages"]).map(language => <li key = {language}>{language}</li>)

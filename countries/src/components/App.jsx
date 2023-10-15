@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Search } from "./Search";
 import { DisplayList } from "./DisplayList";
 import { DisplayCountry } from "./DisplayCountry";
+import { Weather } from "./Weather";
 import axios from "axios";
 
 function App () {
@@ -37,6 +38,7 @@ function App () {
             <Search label = "find countries" text = {query} handler = {updateSearch} />
             <DisplayList matchList = {matchList} handleClick = {handleShow}/>    
             <DisplayCountry country = {matchList.length === 1 ? matchList[0] : toDisplay} /> 
+            <Weather city = "Helsinki" />
         </>
     )
 }
