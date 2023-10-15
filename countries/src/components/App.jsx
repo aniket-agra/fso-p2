@@ -40,7 +40,6 @@ function App () {
             <Search label = "find countries" text = {query} handler = {updateSearch} />
             <DisplayList matchList = {matchList} handleClick = {handleShow}/>    
             <DisplayCountry country = {countryToDisplay} /> 
-            <Weather city = "Helsinki" />
         </>
     )
 }
