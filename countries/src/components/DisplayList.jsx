@@ -1,4 +1,4 @@
-function DisplayList({matchList}) {
+function DisplayList({matchList, handleClick}) {
     if (matchList.length > 10) {
         return (
             <div>
@@ -12,7 +12,14 @@ function DisplayList({matchList}) {
     return (
         <ul>
             {
-                matchList.map(element => <li key = {element["cca3"]}>{element["name"]["common"]}</li>)
+                matchList.map(element => {
+                    return (
+                        <li key = {element["cca3"]}>
+                            {element["name"]["common"]}&nbsp;
+                            <button onClick = {() => handleClick(element)}>show</button>
+                        </li>
+                    );                    
+                })
             }
         </ul>
     );

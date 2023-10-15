@@ -24,10 +24,14 @@ function App () {
         setQuery(e.target.value);
     }
 
+    function handleShow(countryData) {
+        console.log(countryData);
+    }
+
     return (
         <>
             <Search label = "find countries" text = {query} handler = {updateSearch} />
-            <DisplayList matchList = {matchList} />
+            <DisplayList matchList = {matchList} handleClick = {handleShow}/>
             {
                 matchList.length === 1 ? <DisplayCountry country = {matchList[0]} /> : null
             }
