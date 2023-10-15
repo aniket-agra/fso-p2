@@ -23,6 +23,8 @@ function App () {
 
     function updateSearch(e) {
         setQuery(e.target.value);
+        if (toDisplay !== null)
+            setToDisplay(null);
     }
 
     function handleShow(country) {
@@ -34,7 +36,7 @@ function App () {
         <>
             <Search label = "find countries" text = {query} handler = {updateSearch} />
             <DisplayList matchList = {matchList} handleClick = {handleShow}/>    
-            <DisplayCountry country = {toDisplay} /> 
+            <DisplayCountry country = {matchList.length === 1 ? matchList[0] : toDisplay} /> 
         </>
     )
 }
