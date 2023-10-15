@@ -38,8 +38,8 @@ function DisplayCountry({country}) {
         <div>
             <h1>{country["name"]["common"]}</h1>
             <h2 />
-            <p>capital {country["capital"]}</p>
-            <p>area {country["area"]}</p>
+            <div>capital {country["capital"]}</div>
+            <div>area {country["area"]}</div>
             <h2 />
             <p><b>languages: </b></p>
             <ul>
@@ -82,7 +82,9 @@ function App () {
         <>
             <Search label = "find countries" text = {query} handler = {updateSearch} />
             <DisplayList matchList = {matchList} />
-            {/* <DisplayCountry country = {countryData[0]} /> */}
+            {
+                matchList.length === 1 ? <DisplayCountry country = {matchList[0]} /> : null
+            }
         </>
     )
 }
