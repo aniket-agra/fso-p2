@@ -21,6 +21,9 @@ function DisplayList({matchList}) {
             </div>
         )
     }
+    if (matchList.length === 1) {
+        return null;
+    }
     return (
         <ul>
             {
