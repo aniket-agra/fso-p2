@@ -33,11 +33,13 @@ function App () {
         setToDisplay(country);
     }
 
+    const countryToDisplay = matchList.length === 1 ? matchList[0] : toDisplay;
+
     return (
         <>
             <Search label = "find countries" text = {query} handler = {updateSearch} />
             <DisplayList matchList = {matchList} handleClick = {handleShow}/>    
-            <DisplayCountry country = {matchList.length === 1 ? matchList[0] : toDisplay} /> 
+            <DisplayCountry country = {countryToDisplay} /> 
             <Weather city = "Helsinki" />
         </>
     )
